@@ -24,9 +24,12 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -120,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "MessaNatale"
+  "defaultProject": "MessaNatale",
+  "cli": {
+    "analytics": "21e4c440-c83d-441c-b25d-52eaa1cc4b3d"
+  }
 }

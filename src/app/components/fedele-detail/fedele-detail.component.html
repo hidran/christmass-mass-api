@@ -1,0 +1,192 @@
+<br>
+<!--
+<h1>fedele-detail works!</h1>
+
+{{fedele | json }}  -->
+
+
+
+<div class="container">
+  <div class="row col-md-10">    <!--  <div class="row justify-content-md-center"> -->
+  <!--   <div class="col col-lg-1 bord">1 di 3</div>  -->
+     <div class="form-group col-sm-12">
+          <label for="demessa">Messa</label>
+          <input disabled  #demessa="ngModel" [(ngModel)]="messaSelezionata" class="form-control" name="demessa" id="demessa">
+     
+      </div>
+  </div>
+  <hr>
+  <div class="row col-md-12">    <!--  <div class="row justify-content-md-center"> -->
+
+  
+
+  <form  #f ="ngForm">
+
+    <div class="form-row col-md-12">
+    
+      <div class=col-md-6>
+         <input hidden  #idMessa="ngModel"  [(ngModel)]="fedele.idmessa" class="form-control" name="idmessa" id="idmessa">
+      </div>
+      <div class=col-md-6>
+        <input hidden  #id="ngModel"  [(ngModel)]="fedele.id" class="form-control" name="id" id="id">
+     </div>    
+      <div class="form-group col-sm-6">
+        <div class="required">    <!-- per i campi obbligatori -->
+            <label  for="cognome" >Cognome</label>
+        </div>
+
+        <input required minlength="3" maxlength="25" pattern="[a-zA-Z\s]*"   #cognome="ngModel" placeholder="inserire il Cognome" [(ngModel)]="fedele.cognome" class="form-control" name="cognome" id="cognome">
+        <div *ngIf="cognome.dirty && cognome.touched && cognome.invalid" class="alert alert-danger">
+         <!-- {{ firstName.errors | json }}  per editare gli errori e poi impostare il validatore corretto -->
+        <!--  validatore lato client -->
+              <div *ngIf="cognome.errors.required">    <!-- *ngIf="firstName.invalid"-->
+                il campo Cognome è obbligatorio
+              </div>
+              <div *ngIf="cognome.errors.minlength">
+                il campo deve essere lungo più di {{ cognome.errors.minlength.requiredLength }} caratteri
+              </div>
+              <div  *ngIf="cognome.errors.maxlength">
+                il campo non deve essere lungo più di {{ cognome.errors.maxlength.requiredLength }} caratteri
+              </div>
+              <div *ngIf="cognome.errors.pattern">
+                sul campo Cognome non posso inserire numeri  <!-- {{firstName.errors.pattern.requiredPattern }}   -->
+              </div>
+        </div>
+     </div>
+      <div class="form-group col-sm-4">
+        <div class="norequired">
+          <label for="nome">Nome</label>
+        </div>
+        <input required minlength="3" maxlength="25" pattern="[a-zA-Z\s]*"   #nome="ngModel" placeholder="inserire il nome" [(ngModel)]="fedele.nome" class="form-control" name="nome" id="nome">
+   
+        <div *ngIf="nome.dirty && nome.touched && nome.invalid" class="alert alert-danger">
+         <!-- {{ firstName.errors | json }}  per editare gli errori e poi impostare il validatore corretto -->
+        <!--  validatore lato client -->
+              <div  *ngIf="nome.errors.required">    <!-- *ngIf="firstName.invalid"-->
+                il campo nome è obbligatorio
+              </div>
+              <div  *ngIf="nome.errors.minlength">
+                il campo deve essere lungo più di {{ nome.errors.minlength.requiredLength }} caratteri
+              </div>
+              <div  *ngIf="nome.errors.maxlength">
+                il campo non deve essere lungo più di {{ nome.errors.maxlength.requiredLength }} caratteri
+              </div>
+              <div  *ngIf="nome.errors.pattern">
+                sul campo nome non posso inserire numeri  <!-- {{firstName.errors.pattern.requiredPattern }}   -->
+              </div>
+        </div>
+      </div>
+      <div class="form-group col-sm-2">
+      
+          <label  *ngIf="id > 0" for="presenza">Utente</label>
+          <input  hidden #presente="ngModel" [(ngModel)]="fedele.presente" class="form-control" name="presente" id="presente">
+     
+        <input  *ngIf="id > 0"  readOnly #nome="ngModel"  [(ngModel)]="presenza" class="form-control" name="presenza" id="presenza"   [style.color]="presenza == 'Entrato' ? 'red' : null"  [style.background-color]="presenza == 'Entrato' ? 'yellow' : 'PaleGreen'" >
+     
+      </div>
+
+  </div>
+
+
+
+
+    <div class="form-group">
+       <label for="email">Indirizzo e_mail</label>
+       <input  placeholder="Inserire indirizzo email" [(ngModel)]="fedele.email"  #email="ngModel" class="form-control" type="email" name="email" id="email" patter="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
+       <small id="emailHelp" class="form-text text-muted">Non condivideremo mai la tua email con nessun altro.</small> 
+    <div *ngIf="email.dirty && email.touched && email.invalid" class="alert alert-danger">
+        <!-- {{ firstName.errors | json }}  per editare gli errori e poi impostare il validatore corretto  -->
+       <!--  validatore lato client   -->
+              <div *ngIf="email.errors.required">    <!-- *ngIf="firstName.invalid" -->
+               il campo email è obbligatorio
+             </div>   
+              <div *ngIf="email.errors?.pattern">   
+              formalismo errato
+             </div>
+       </div>
+    </div>  
+    
+
+
+    
+
+      <div class="form-group">
+          <div class="form-group">
+            <label class="obbligatorio" for="telefono">telefono</label>
+              
+                      <label>*</label>
+              
+           </div>
+     
+        <input required placeholder="Inserire il Telefono" [(ngModel)]="fedele.telefono"  #phone="ngModel" class="form-control" name="telefono" id="telefono" pattern="^([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)?[0-9]{1,4}?)$">  
+        <div *ngIf="phone.dirty && phone.touched && phone.invalid" class="alert alert-danger">
+          <!-- {{ firstName.errors | json }}  per editare gli errori e poi impostare il validatore corretto -->
+         <!--  validatore lato client -->
+             <div *ngIf="phone.errors?.pattern">   
+                telefono errato
+               </div>
+         </div>
+        
+
+
+
+
+
+
+
+      </div>
+   
+  
+
+       <div class="form-group form-footer col-sm-12">
+          <div class="row">
+            <div class="row col-sm-12" >
+              <div class="col-sm-2">
+                    <button class="btn btn-primary  btn-md"  (click)="backToMessa()">Back
+                        <fa-icon [icon]="faHandPointLeft"></fa-icon>   <!--  reset -->
+                    </button>
+              </div>
+              <div class="col-sm-2">
+                    <button class="btn btn-secondary  btn-md"  (click)="resetForm(f.form)">Reset  <!--  reset -->
+                      <fa-icon [icon]="faUndo"></fa-icon>
+                    </button>
+              </div>
+              <div class="col-sm-2">
+                    <button [disabled]="f.invalid" class="btn btn-success btn-md" (click)="saveFedele()">Salva    <!--  salva -->
+                      <fa-icon [icon]="faSave"  fixed="true"></fa-icon>
+                    </button>
+              </div>
+              <div class="col-sm-2" *ngIf="id > 0">
+                    <button  [disabled]="!isAdmin" type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#deleteModal" (click)="confirmdeleteFedele(fedele)" name="elimina">Elim.     
+                      <fa-icon [icon]="faTrashAlt"  fixed="true"></fa-icon>
+                    </button>
+             </div> 
+             <div class="col-sm-3" *ngIf="id > 0">
+              <button  [disabled]="isEntrato" type="button" class="btn btn-info btn-md"  (click)="confirmdPresenzaFedele(fedele)"  name=rilascia>Presenza     
+                <fa-icon [icon]="faCheckCircle"  fixed="true"></fa-icon>
+              </button>
+          </div>   
+    
+       </div>  
+            </div>
+     
+<br>
+<!--   messaggio con esito operazione -->
+
+      <div *ngIf="savechange  && !alertSuccess" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Errore in Modifica Fedele</h4>
+        <p>{{message}}</p>
+        <hr>
+        <p class="mb-0">Contattare il gestore dell'applicazione.</p>
+      </div>
+      <div *ngIf="savechange  && alertSuccess" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">{{funzione}}</h4>
+        <p>{{message}}</p>
+        <hr>
+        <p class="mb-0">{{message1}}</p> 
+      </div>
+   </div>
+
+    </form>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+.bord {
+  border-color: brown;
+  background-color: blue;
+  font-size: 25px;
+  font-weight: 800;
+  font-style: italic;
+  font-family: 'Courier New', Courier, monospace;
+}
+.bord1 {
+  border-color: violet;
+  background-color: yellow;
+  font-size: 25px;
+  font-weight: 800;
+  font-style: italic;
+  font-family: 'Courier New', Courier, monospace;
+}
+.ppre {
+  color: red;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.pmax {
+  color:green;
+  font-size: medium;
+  font-weight: bold;
+}

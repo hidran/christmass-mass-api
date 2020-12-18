@@ -1,0 +1,162 @@
+<p>messa-detail works!</p>
+
+<!-- {{perDebug}}       {{ user | json}}   -->
+
+<br>    <!-- aumento interspazio tra le righe -->
+
+<form #f ="ngForm">     <!--  fino a video 38 instasllazione font awesome -->
+
+  <input type="hidden" name="id"  [(ngModel)]="messa.id">
+
+      <div class="form-group col-sm-6">
+        <div class="norequired">
+          <label for="demessa">Messa</label>
+        </div>
+        <input required minlength="10" maxlength="25" pattern="[a-zA-Z\s]*"   #demessa="ngModel" placeholder="inserire descrizione messa" [(ngModel)]="messa.demessa" class="form-control" name="demessa" id="demessa">
+        <div *ngIf="demessa.dirty && demessa.touched && demessa.invalid" class="alert alert-danger">
+          <!-- {{ demessa.errors | json }}  per editare gli errori e poi impostare il validatore corretto -->
+         <!--  validatore lato client -->
+               <div  *ngIf="demessa.errors.required">    <!-- *ngIf="demessa.invalid"-->
+                 il campo messa è obbligatorio
+               </div>
+               <div  *ngIf="demessa.errors.minlength">
+                 il campo deve essere lungo più di {{ demessa.errors.minlength.requiredLength }} caratteri
+               </div>
+               <div  *ngIf="demessa.errors.maxlength">
+                 il campo non deve essere lungo più di {{ demessa.errors.maxlength.requiredLength }} caratteri
+               </div>
+          </div>
+      </div>
+
+
+
+ <br>    <!-- aumento interspazio tra le righe -->
+
+
+ <div class="form-group  col-sm-3">
+  <div class="norequired">
+      <label   for="postimax">Posti Massimi</label>
+  </div>
+  <input  required placeholder="Inserire il n.ro massimo posti" [(ngModel)]="messa.postimax" #postimax="ngModel" required minlength="2" maxlength="3" pattern="[0-9]{2,2}" class="form-control" type="number" name="postimax" id="postimax">
+  <div *ngIf="postimax.dirty && postimax.touched && postimax.invalid"  class="alert alert-danger">
+      <div  *ngIf="postimax.errors.required">
+        inserire il numero dei posti massimi - campo Obbligatorio
+      </div>
+      <div  *ngIf="postimax.errors.minlength">
+        il campo deve avere almeno {{postimax.errors.minlength.requiredLength }} caratteri
+      </div>
+
+      <div *ngIf="postimax.errors?.pattern">
+        <!-- non posso inserire lettere   {{postimax.errors.pattern.requiredPattern }}  -->
+        posti massimo non valido.
+      </div>
+  </div>
+</div>
+
+
+
+<!-- Bottoni funzionali -->
+
+  <div class="form-group form-footer">
+    <div class="row">
+      <div class="row col-sm-9" >
+        <div class="col-sm-3">
+          <button class="btn btn-primary  btn-md"  (click)="backToUsers()">Back
+           <fa-icon [icon]="faHandPointLeft"></fa-icon>   <!--  reset -->
+         </button>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-secondary  btn-md"  (click)="resetForm(f.form)">Reset  <!--  reset -->
+              <fa-icon [icon]="faUndo"></fa-icon>
+            </button>
+        </div>
+        <div class="col-sm-3">
+            <button [disabled]="f.invalid" class="btn btn-success btn-md" (click)="saveMessa()">Salva    <!--  salva -->
+              <fa-icon [icon]="faSave"  fixed="true"></fa-icon>
+             </button>
+        </div>
+        <!--
+        <div class="col-sm-3">
+
+            <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#deleteModal" (click)="confirmdeleteUser(user)">Elimina      <--   Show Modal
+            <fa-icon [icon]="faTrashAlt"  fixed="true"></fa-icon>
+           </button>
+      </div>  -->
+    </div>
+  </div>
+<br>
+<!--   messaggio con esito operazione -->
+
+      <div *ngIf="isVisible  && !alertSuccess" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Errore in Modifica Messa</h4>
+        <p>{{message}}</p>
+        <hr>
+        <p class="mb-0">Contattare il gestore dell'applicazione.</p>
+      </div>
+      <div *ngIf="isVisible  && alertSuccess" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Modifica Messa</h4>
+        <p>{{message}}</p>
+        <hr>
+        <p class="mb-0">Bravissimo !!!!!!</p>
+      </div>
+
+
+
+
+ </div>
+<!--   parte di definizione della form popup di cancellazione -->
+<!--    portata in user-data  (li controllo il profilo e abilito i tasti modifica e delete se abilitati)
+ <div class="modal fade" id="deleteModal" name="modelDlt">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+            <div class="icondel">
+              <fa-icon [icon]="faTrashAlt"  fixed="true"></fa-icon>
+            </div>
+
+            <h2 class="modal-title">Conferma Cancellazione</h2>
+              <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p>{{ textMessage1 }} <strong> {{textUser}}</strong> ? </p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#esitoOperationModal"  (click)="abortdeleteUser(user)">annulla
+                <fa-icon [icon]="faHandPointLeft"></fa-icon>
+              </button>
+              <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#esitoOperationModal" (click)="yesdeleteUser(user)">Cancella
+                <fa-icon [icon]="faTrashAlt"  fixed="true"></fa-icon>
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="esitoOperationModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+            <div class="iconinfo">
+              <fa-icon [icon]="faInfoCircle"  fixed="true"></fa-icon>
+            </div>
+              <h2 class="modal-title">{{ headerPopup }}</h2>
+              <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <p>{{ textMessage1 }} <strong> {{textUser}}</strong> {{ textMessage2 }} </p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="okconfirm()">Ok</button>   <--  qui devo fare un metodo che fa solo routing a users
+          </div>
+      </div>
+  </div>
+</div>   -->
+
+
+</form>
+
+

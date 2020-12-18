@@ -1,0 +1,50 @@
+<p>login works!</p>
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h1>
+      login works!
+    </h1>
+    <div class="card">
+      <div class="card-body">
+    <form name="loginForm" #f="ngForm" (ngSubmit)="signIn(f)">
+
+
+      <div class="form-group">
+        <label for="cognome">utente</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text"><fa-icon [icon]="faEnvelope"></fa-icon> </span>     <!--   <i class="fa fa-envelope" aria-hidden="true"></i> -->
+          </div>
+          <input required  class="form-control" cognome type="normal" ngModel #cognome="ngModel" name="cognome" id="cognome"  placeholder="inserire utente">
+        </div>
+        <div *ngIf="cognome.dirty && cognome.touched && cognome.invalid" class="alert alert-danger">
+
+          <div  *ngIf="cognome.errors.required">
+            inserire utente - campo obbligatorio
+          </div>
+         </div>
+      </div>
+      <!--  bottone -->
+      <div class="form-group text-center">
+        <button [disabled]="!f.valid" class="btn btn-primary">Log in</button>
+      </div>
+      <!-- messaggi -->
+      <div *ngIf="savechange  && !alertSuccess" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Errore in Login</h4>
+        <p>{{message}}</p>
+        <hr>
+        <p class="mb-0">inserire credenziali corrette</p>
+      </div>
+      <div *ngIf="savechange  && alertSuccess" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Modifca Password</h4>
+        <p>Utente riconosciuto</p>
+        <hr>
+        <p class="mb-0">Bravissimo !!!!!!</p>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

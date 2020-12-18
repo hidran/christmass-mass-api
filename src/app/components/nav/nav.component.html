@@ -1,0 +1,81 @@
+
+
+<!--
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">Circolo Sanfra</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"  open="true"  open="true">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse" >
+    <ul class="navbar-nav mr-auto"  >
+      <div class="form-row">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" routerLink="">Home</a>
+      </li>
+      <li class="nav-item active">
+
+        <a class="nav-link" href="#"   routerLink="messe">Messe di Nalate</a>
+      </li>
+    </div>
+
+      <div class="form-row">
+        <div class="titolo">
+          {{titolo}}
+        </div>
+         &nbsp;
+        <div class="anno">
+          {{anno}}
+        </div>
+      </div>
+
+-->
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-blue navbg">
+  <a class="navbar-brand" href="#">
+    <img src="assets/images/logoSanfra.png" width="30" height="30" alt="logo">
+  </a>
+  <a class="navbar-brand" href="#">Circolo Sanfra</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#" routerLink="jumbo">Home</a>
+      <a class="nav-link" href="#"  (click)="startMesse()"  >Messe di Nalate</a>   <!--  (click)="goMesse()"   (click)="startMesse()"-->
+      <input class="btn btn-primary" type="button" value="Info" routerLink="info">
+
+    </div>
+    <div class="form-row">
+      <div class="titolo">
+        {{titolo}}
+      </div>
+       &nbsp;
+      <div class="anno">
+        {{anno}}
+      </div>
+    </div>
+  </div>
+  <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a *ngIf="!isUserLoggedIn" routerLink="login"   class="nav-link" href="#">Login</a>  <!-- (click)="signIn($event)"-->
+      </li>
+
+
+        <li *ngIf="isUserLoggedIn" class="nav-item nav-link ">   <!--  colorUsername  text-nowrap -->
+          {{username}}
+        </li>
+        <li class="nav-item text-nowrap">
+            <a *ngIf="isUserLoggedIn" class="nav-link"  href="#" (click)=logout($event)>Sign out</a>
+      </li>
+    </ul>
+
+</nav>
+
+
+
